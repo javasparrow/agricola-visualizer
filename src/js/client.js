@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PlayerPanel from "./components/player_panel";
+import CommonBoard from "./components/common_board";
 
 class Layout extends React.Component {
 
@@ -24,10 +25,17 @@ class Layout extends React.Component {
   }
 
   render() {
-    const board_elements = this.state.json_data ? 
-      this.state.json_data.players.map(player => {
-        return <PlayerPanel json_data={player}/>
-      }) : null
+
+    let board_elements 
+
+    if (this.state.json_data) {
+      board_elements = <div>
+        <CommonBoard board={this.state.json_data.common_board} />
+        {this.state.json_data.players.map(player => {
+          return <PlayerPanel json_data={player}/>
+        })}
+      </div>
+    }
 
     return (
     <div>
