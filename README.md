@@ -1,7 +1,9 @@
 # agricola-visualizer
 
 # build
-google-chrome-stable ./src/index.html
+webpack --mode development 
+
+open ./src/index.html with browser
 
 # 環境設定
 npm init
