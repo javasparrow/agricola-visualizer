@@ -1,11 +1,14 @@
 # agricola-visualizer
 
-# build
+# how to build
+
+npm install
+
 webpack --mode development 
 
 open ./src/index.html with browser
 
-# 環境設定
+# 環境設定メモ
 npm init
 npm install --save-dev webpack webpack-cli webpack-dev-server
 npm install -g webpack webpack-cli

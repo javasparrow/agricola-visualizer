@@ -40,7 +40,7 @@ export default class CommonBoard extends React.Component {
         this.props.board.actions.map((action) => {
           let style = round_card_style
           if(!action.is_available){
-            round_card_style_disable
+            style = round_card_style_disable
           }
           return <div style={style}>
             <div>
