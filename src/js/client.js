@@ -16,6 +16,7 @@ class Layout extends React.Component {
   handleChangeFile = (event) => {
     console.log("heyhey");
     this.readStateFile(event.target.files[0])
+    this.setLogIndex(1)
   }
 
   handleChangeFolder = (event) => {
@@ -31,26 +32,35 @@ class Layout extends React.Component {
     fileReader.onloadend = (e) => {
       const content = fileReader.result
       console.log(content)
-      const json_log = JSON.parse(content);
-      console.log(json_log);
-      this.setState({json_data: json_log})
+      const json_data_array = content.split("\n").map((json) => {
+        console.log(json)
+        if (!json){
+          return {}
+        }
+        return JSON.parse(json)
+      });
+      this.setState({json_data_array: json_data_array})
     }
     fileReader.readAsText(file);
   }
 
   setLogIndex = (index) => {
     this.setState({current_log_index: index})
-    this.readStateFile(this.log_files.filter((file) => file.name == `state${index}.json`)[0])
   }
 
   render() {
 
     let board_elements 
 
-    if (this.state.json_data) {
+    if (this.state.json_data_array) {
+      const json_data = this.state.json_data_array[this.state.current_log_index]
       board_elements = <div>
-        <CommonBoard board={this.state.json_data.common_board} />
-        {this.state.json_data.players.map(player => {
+        <div>Stage:{json_data.current_stage}</div>
+        <div>Round:{json_data.current_round}</div>
+        <div>Current Player:{json_data.current_player}</div>
+        <div>Start Player:{json_data.start_player}</div>
+        <CommonBoard board={json_data.common_board} />
+        {json_data.players.map(player => {
           return <PlayerPanel json_data={player}/>
         })}
       </div>
@@ -60,7 +70,6 @@ class Layout extends React.Component {
     <div>
       <h1>Welcome!</h1>
       <input type="file" onChange={this.handleChangeFile} ></input>
-      <input type="file" onChange={this.handleChangeFolder} webkitdirectory="true" directory="true"/>
       <button onClick={()=> this.setLogIndex(this.state.current_log_index - 1)}>back</button>
       {this.state.current_log_index}
       <button onClick={()=> this.setLogIndex(this.state.current_log_index + 1)}>next</button>
