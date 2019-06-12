@@ -13,16 +13,53 @@ const round_card_style = {
   overflow: "hidden"
 }
 
+const default_card_order = [
+  "FarmExpansion", 
+  "MeetingPlace", 
+  "GrainSeeds", 
+  "Farmland", 
+  "DayLaborer", 
+  "Forest", 
+  "ClayPit", 
+  "ReedBank", 
+  "Fishing", 
+  "Lessons", 
+  "Copse", 
+  "Grove", 
+  "ResourceMarket4P", 
+  "Hollow4P", 
+  "Lessons4P", 
+  "TravelingPlayers"
+]
+
 export default class CommonBoard extends React.Component {
 
   constructor(props) {
     super(props);
   }
 
+  calculate_action_index(action, board){
+    if(default_card_order.indexOf(action.action_id) !== -1){
+      return default_card_order.indexOf(action.action_id);
+    }
+    if(board.round_cards.indexOf(action.action_id) !== -1){
+      return board.round_cards.indexOf(action.action_id) + default_card_order.length
+    }
+    return -1
+  }
+
   render() {
     if(!this.props.board){
-        return <div/>
+        return <div/>;
     }
+
+    this.props.board.actions.sort((a, b) => {
+      const a_index = this.calculate_action_index(a, this.props.board);
+      const b_index = this.calculate_action_index(b, this.props.board);
+      if(a_index > b_index) return 1;
+      if(a_index < b_index) return -1;
+      return 0;
+    })
 
     return (
     <div>
