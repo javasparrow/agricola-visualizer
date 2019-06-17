@@ -30,9 +30,13 @@ export default class PlayerPanel extends React.Component {
       <div>Score:{this.props.json_data.score}</div>
       <div>Begging:{this.props.json_data.begging_cards}</div>
       <div>Hand Improvements</div>
-      {this.props.json_data.hand_improvements.map(improvement => <div style={{marginLeft: 16}}>{improvement}</div>)}
-      <div>Minor Improvements</div>
-      {this.props.json_data.played_improvements.map(improvement => <div style={{marginLeft: 16}}>{improvement.improvement_id}</div>)}
+      <div style={{marginLeft: 16}}>{this.props.json_data.hand_improvements.join(",")}</div>
+      <div>Hand Occupations</div>
+      <div style={{marginLeft: 16}}>{this.props.json_data.hand_occupations.join(",")}</div>
+      <div>Improvements</div>
+      <div style={{marginLeft: 16}}>{this.props.json_data.played_improvements.map(improvement => improvement.improvement_id).join(",")}</div>
+      <div>Occupations</div>
+      <div style={{marginLeft: 16}}>{this.props.json_data.played_occupations.map(occupation => occupation.occupation_id).join(",")}</div>
       <ResourcePanel resources={this.props.json_data.resources} />
       <PlayerBoard board={this.props.json_data.board} fences={this.props.json_data.fences} />
     </div>
