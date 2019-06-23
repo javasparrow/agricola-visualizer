@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { GiSquare } from "react-icons/gi";
+import { GiHouse } from "react-icons/gi";
 
 const square_size = 50
 const margin_size = 10
@@ -54,6 +54,8 @@ export default class PlayerBoard extends React.Component {
           }
         }
         return <div style={Object.assign({},commonn_style,field_style, position_style)}> {planted_elements} </div>
+      case "stable":
+        return <div style={Object.assign({},commonn_style, position_style)} > <GiHouse style={{fontSize: 24}} /> </div>
       default:
         return <div style={Object.assign({},commonn_style, position_style)} />
     }

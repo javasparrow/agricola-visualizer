@@ -63,6 +63,8 @@ export default class CommonBoard extends React.Component {
 
     return (
     <div>
+      <div>Major Improvements</div>
+      <div style={{marginLeft: 16}}>{this.props.board.remaining_major_improvements.join(",")}</div>
       {
         this.props.board.actions.map((action) => {
           let style = round_card_style
