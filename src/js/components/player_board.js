@@ -11,6 +11,19 @@ const wooden_hut_style = {
   backgroundSize: "contain"
 }
 
+
+const clay_hut_style = {
+  border: "1px solid black",
+  backgroundImage: "url(http://www.boiteajeux.net/jeux/agr/img/maisonargile.gif)",
+  backgroundSize: "contain"
+}
+
+const stone_hut_style = {
+  border: "1px solid black",
+  backgroundImage: "url(http://www.boiteajeux.net/jeux/agr/img/maisonpierre.gif)",
+  backgroundSize: "contain"
+}
+
 const field_style = {
   border: "1px solid black",
   backgroundImage: "url(http://www.boiteajeux.net/jeux/agr/img/champ.gif)",
@@ -41,6 +54,10 @@ export default class PlayerBoard extends React.Component {
     switch(square.object_type){
       case "wooden_hut":
         return <div style={Object.assign({},commonn_style, wooden_hut_style, position_style)} />
+      case "clay_hut":
+        return <div style={Object.assign({},commonn_style, clay_hut_style, position_style)} />
+      case "stone_hut":
+        return <div style={Object.assign({},commonn_style, stone_hut_style, position_style)} />
       case "field":
         let planted_elements;
         if (square.item_count > 0) {
