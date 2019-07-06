@@ -70,6 +70,7 @@ class Layout extends React.Component {
         </div>
         <div style={{width: 500}}>
           {json_data.is_previous_action_failed && <div style={{color: "red", fontWeight: 700}}>Previous Action Failed!</div>}
+          {json_data.is_previous_action_failed && <div style={{color: "red", fontWeight: 700}}>{json_data.previous_error}</div>}
           <div>Current Player: {json_data.current_player}</div>
           <div>Current Event: {json_data.current_event}</div>
           <div>Event Source: {json_data.event_source}</div>
