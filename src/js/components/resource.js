@@ -36,7 +36,7 @@ export default class Resource extends React.Component {
 
   render() {
     return (
-        <div style={{display: "inline-block", margin: 10, color: resource_color[this.props.resource_type]}}> 
+        <div style={{"font-size": 20, display: "inline-block", margin: 5, color: resource_color[this.props.resource_type]}}> 
           {resource_type_map[this.props.resource_type]}:{this.props.resource_amount} 
         </div>
     );

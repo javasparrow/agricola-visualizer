@@ -4,11 +4,49 @@ import ResourcePanel from "./resource_panel";
 import PlayerBoard from "./player_board";
 import { player_colors } from "../consts/colors";
 import { strict } from "assert";
+import JSONPretty from 'react-json-pretty';
+
+const improvement_style = {
+  width: 80,
+  height: 100,
+  background: "rgb(250,150,50)",
+  margin: 10,
+  display: "inline-block"
+}
+
+const improvement_title_style = {
+  width: 70,
+  margin: 5,
+  height: 40,
+  fontWeight: "bold",
+  background: "rgb(250,230,150)",
+  wordWrap: "break-word",
+  lineHeight: "1em"
+}
+
+const occupation_style = {
+  width: 80,
+  height: 100,
+  background: "rgb(250,215,100)",
+  margin: 10,
+  display: "inline-block"
+}
+
+const occupation_title_style = {
+  width: 70,
+  margin: 5,
+  height: 40,
+  fontWeight: "bold",
+  background: "rgb(250,230,150)",
+  wordWrap: "break-word",
+  lineHeight: "1em"
+}
 
 export default class PlayerPanel extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {}
   }
 
   render() {
@@ -18,7 +56,7 @@ export default class PlayerPanel extends React.Component {
     }
 
     return (
-    <div>
+    <div style={{padding: 8, border: "solid 1px #CCCCCC"}}>
       <div style={{color: player_colors[this.props.json_data.player_id]}}>{
         this.props.json_data.families.map((family) => {
           if(family.family_type == "in_house"){
@@ -28,16 +66,39 @@ export default class PlayerPanel extends React.Component {
           }
         })
       }</div>
+      <div>
+        <button onClick={
+          () => {
+            this.setState({
+              showJSON: !this.state.showJSON
+            })
+          }
+        }>Toggle JSON</button>
+      </div>
+      {this.state.showJSON && <div>
+        <JSONPretty data={this.props.json_data}></JSONPretty>
+      </div>
+      }
       <div>Score:{this.props.json_data.score}</div>
       <div>Begging:{this.props.json_data.begging_cards}</div>
       <div>Hand Improvements</div>
-      <div style={{marginLeft: 16}}>{this.props.json_data.hand_improvements.join(",")}</div>
+      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{this.props.json_data.hand_improvements.join(",")}</div>
       <div>Hand Occupations</div>
-      <div style={{marginLeft: 16}}>{this.props.json_data.hand_occupations.join(",")}</div>
-      <div>Improvements</div>
-      <div style={{marginLeft: 16}}>{this.props.json_data.played_improvements.map(improvement => improvement.improvement_id).join(",")}</div>
-      <div>Occupations</div>
-      <div style={{marginLeft: 16}}>{this.props.json_data.played_occupations.map(occupation => occupation.occupation_id).join(",")}</div>
+      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{this.props.json_data.hand_occupations.join(",")}</div>
+      <ResourcePanel resources={this.props.json_data.resources} />
+      <PlayerBoard board={this.props.json_data.board} fences={this.props.json_data.fences} />
+      <div>
+        {
+          this.props.json_data.played_occupations.map(occupation => <div style={occupation_style}>
+            <div style={occupation_title_style}>{occupation.occupation_id}</div>
+          </div>)
+        }
+        {
+          this.props.json_data.played_improvements.map(improvement => <div style={improvement_style}>
+            <div style={improvement_title_style}>{improvement.improvement_id}</div>
+          </div>)
+        }
+      </div>
       <table>
         <tr>
           {Array.from(Array(14).keys()).map((round) => <th style={{"border": "1px solid #DDDDDD", "padding": 4}}>{round + 1}</th>)}
@@ -55,8 +116,6 @@ export default class PlayerPanel extends React.Component {
           }
         </tr>
       </table>
-      <ResourcePanel resources={this.props.json_data.resources} />
-      <PlayerBoard board={this.props.json_data.board} fences={this.props.json_data.fences} />
     </div>
     );
   }
