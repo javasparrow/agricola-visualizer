@@ -108,7 +108,7 @@ class Layout extends React.Component {
     }
 
     return (
-    <div>
+    <div style={{background: "#FFFFEF", minHeight: "calc(100vh)", padding: 8}}>
       <div>
         <input type="file" onChange={this.handleChangeFile} ></input>
         <button onClick={()=> this.setLogIndex(this.state.current_log_index - 1)}>back</button>

@@ -57,7 +57,9 @@ export default class PlayerPanel extends React.Component {
 
     return (
     <div style={{padding: 8, border: "solid 1px #CCCCCC"}}>
-      <div style={{color: player_colors[this.props.json_data.player_id]}}>{
+      <div style={{color: player_colors[this.props.json_data.player_id], fontSize: 36}}>
+        Player{this.props.json_data.player_id}
+      {
         this.props.json_data.families.map((family) => {
           if(family.family_type == "in_house"){
             return "●"
@@ -66,15 +68,6 @@ export default class PlayerPanel extends React.Component {
           }
         })
       }</div>
-      <div>
-        <button onClick={
-          () => {
-            this.setState({
-              showJSON: !this.state.showJSON
-            })
-          }
-        }>Toggle JSON</button>
-      </div>
       {this.state.showJSON && <div>
         <JSONPretty data={this.props.json_data}></JSONPretty>
       </div>
@@ -116,6 +109,15 @@ export default class PlayerPanel extends React.Component {
           }
         </tr>
       </table>
+      <div>
+        <button onClick={
+          () => {
+            this.setState({
+              showJSON: !this.state.showJSON
+            })
+          }
+        }>Toggle JSON</button>
+      </div>
     </div>
     );
   }
