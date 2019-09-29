@@ -79,6 +79,19 @@ class Layout extends React.Component {
       const json_data = this.state.json_data_array[this.state.current_log_index]
       console.log(json_data)
       board_elements = <div>
+         <div>
+          <button onClick={
+            () => {
+              this.setState({
+                show_all_json: !this.state.show_all_json
+              })
+            }
+          }>Toggle All JSON</button>
+        </div>
+        {this.state.show_all_json && <div>
+          <JSONPretty data={json_data}></JSONPretty>
+        </div>
+        }
         <div style={{display: "flex"}}>
           <div style={{display: "inline-flex", flexGrow: 1}}>
             <div>
@@ -95,8 +108,25 @@ class Layout extends React.Component {
             <div>Current Player: {json_data.current_player}</div>
             <div>Current Event: {json_data.current_event}</div>
             <div>Event Source: {json_data.event_source}</div>
+            <div>
+              <button onClick={
+                () => {
+                  this.setState({
+                    show_cadidate_json: !this.state.show_cadidate_json
+                  })
+                }
+              }>Toggle Candidate JSON</button>
+            </div>
             <div>Player output</div>
             <JSONPretty data={json_data.player_output}></JSONPretty>
+            {this.state.show_cadidate_json && json_data.choice_candidates && <div>
+              <div>Chosen Candidate</div>
+              {json_data.player_output.candidate_index ?
+                <JSONPretty data={json_data.choice_candidates[json_data.player_output.candidate_index]}></JSONPretty>
+                : <JSONPretty data={json_data.choice_candidates[json_data.choice_candidates.length - 1]}></JSONPretty>
+              }
+            </div>
+            }
           </div>
         </div>
         <div style={{display: "flex"}}>
