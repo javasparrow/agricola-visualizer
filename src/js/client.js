@@ -121,7 +121,7 @@ class Layout extends React.Component {
             <JSONPretty data={json_data.player_output}></JSONPretty>
             {this.state.show_cadidate_json && json_data.choice_candidates && <div>
               <div>Chosen Candidate</div>
-              {json_data.player_output.candidate_index ?
+              {json_data.player_output.candidate_index || json_data.player_output.candidate_index == 0 ?
                 <JSONPretty data={json_data.choice_candidates[json_data.player_output.candidate_index]}></JSONPretty>
                 : <JSONPretty data={json_data.choice_candidates[json_data.choice_candidates.length - 1]}></JSONPretty>
               }
