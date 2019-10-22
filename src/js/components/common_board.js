@@ -65,7 +65,7 @@ export default class CommonBoard extends React.Component {
     return (
     <div>
       <div>Major Improvements</div>
-      <div style={{marginLeft: 16}}>{this.props.board.remaining_major_improvements.join(",")}</div>
+      <div style={{marginLeft: 16}}>{Object.keys(this.props.board.remaining_major_improvements).join(",")}</div>
       <div style={{flexDirection: "column", display: "flex", flexWrap: "wrap", height: 300, width: 0}}>
         {
           this.props.board.actions.map((action) => {
