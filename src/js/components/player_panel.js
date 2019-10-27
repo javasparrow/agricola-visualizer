@@ -75,7 +75,7 @@ export default class PlayerPanel extends React.Component {
       <div>Score:{this.props.json_data.score}</div>
       <div>Begging:{this.props.json_data.begging_cards}</div>
       <div>Hand Improvements</div>
-      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{this.props.json_data.hand_improvements.join(",")}</div>
+      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{Object.keys(this.props.json_data.hand_improvements).join(",")}</div>
       <div>Hand Occupations</div>
       <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{this.props.json_data.hand_occupations.join(",")}</div>
       <ResourcePanel resources={this.props.json_data.resources} />
