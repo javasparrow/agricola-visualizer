@@ -77,18 +77,18 @@ export default class PlayerPanel extends React.Component {
       <div>Hand Improvements</div>
       <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{Object.keys(this.props.json_data.hand_improvements).join(",")}</div>
       <div>Hand Occupations</div>
-      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{this.props.json_data.hand_occupations.join(",")}</div>
+      <div style={{marginLeft: 16, "overflow-wrap": "break-word"}}>{Object.keys(this.props.json_data.hand_occupations).join(",")}</div>
       <ResourcePanel resources={this.props.json_data.resources} />
       <PlayerBoard board={this.props.json_data.board} fences={this.props.json_data.fences} />
       <div>
         {
-          this.props.json_data.played_occupations.map(occupation => <div style={occupation_style}>
-            <div style={occupation_title_style}>{occupation.occupation_id}</div>
+          Object.keys(this.props.json_data.played_occupations).map(occupation_id => <div style={occupation_style}>
+            <div style={occupation_title_style}>{occupation_id}</div>
           </div>)
         }
         {
-          this.props.json_data.played_improvements.map(improvement => <div style={improvement_style}>
-            <div style={improvement_title_style}>{improvement.improvement_id}</div>
+          Object.keys(this.props.json_data.played_improvements).map(improvement_id => <div style={improvement_style}>
+            <div style={improvement_title_style}>{improvement_id}</div>
           </div>)
         }
       </div>
