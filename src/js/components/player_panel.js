@@ -92,7 +92,7 @@ export default class PlayerPanel extends React.Component {
           </div>)
         }
       </div>
-      <table>
+      <table style={{"table-layout": "fixed", "width": "100%"}}>
         <tr>
           {Array.from(Array(14).keys()).map((round) => <th style={{"border": "1px solid #DDDDDD", "padding": 4}}>{round + 1}</th>)}
         </tr>
@@ -100,7 +100,7 @@ export default class PlayerPanel extends React.Component {
           {
             Array.from(Array(14).keys()).map((round) => {
               if (this.props.json_data.round_resources[`${round + 1}`]){
-                return <th style={{"border": "1px solid #DDDDDD", "padding": 4}}>{
+                return <th style={{"border": "1px solid #DDDDDD", "padding": 4, "overflow": "hidden"}}>{
                   JSON.stringify(this.props.json_data.round_resources[`${round + 1}`])
                 }</th>
               }

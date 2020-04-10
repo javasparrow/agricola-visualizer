@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import PlayerPanel from "./components/player_panel";
 import CommonBoard from "./components/common_board";
 import JSONPretty from 'react-json-pretty';
+//import defaultJSON from '../data/7adc0110-e101-43d8-838e-bb62e38fc647_state.json';
 
 class Layout extends React.Component {
 
@@ -10,12 +11,44 @@ class Layout extends React.Component {
     super(props);
 
     this.setLogIndex = this.setLogIndex.bind(this)
-    this.handleChangeFolder = this.handleChangeFolder.bind(this)
     this.state = {}
+  }
+
+  // https://qiita.com/nissuk/items/1ede2953a8661dc59214
+  fetchLocal(url) {
+    
   }
 
   componentWillMount() {
     document.addEventListener("keydown", this.onKeyPressed.bind(this));
+  }
+
+  componentDidMount() {
+    // fetch default log
+    var xhr = new XMLHttpRequest(); 
+
+    xhr.open("GET", './default_log.txt', true);
+    xhr.onreadystatechange = () =>{
+      console.log("xhr");
+      console.log(xhr);
+      if(xhr.readyState === 4) {
+          var data = xhr.responseText; // 外部ファイルの内容
+          if (data) {
+            console.log(data)
+            const json_data_array = data.split("\n").map((json) => {
+              if (!json){
+                return {}
+              }
+              return JSON.parse(json)
+            });
+            this.setState({
+              json_data_array: json_data_array, 
+              current_log_index: 1
+            })
+          }
+      }
+    }
+    xhr.send();
   }
 
   componentWillUnmount() {
@@ -33,14 +66,6 @@ class Layout extends React.Component {
 
   handleChangeFile = (event) => {
     this.readStateFile(event.target.files[0])
-    this.setLogIndex(1)
-  }
-
-  handleChangeFolder = (event) => {
-    console.log(event)
-    console.log(event.target.files)
-
-    this.log_files = Array.from(event.target.files)
     this.setLogIndex(1)
   }
 
@@ -77,7 +102,6 @@ class Layout extends React.Component {
 
     if (this.state.json_data_array) {
       const json_data = this.state.json_data_array[this.state.current_log_index]
-      console.log(json_data)
       board_elements = <div>
          <div>
           <button onClick={
