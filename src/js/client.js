@@ -43,7 +43,7 @@ class Layout extends React.Component {
             });
             this.setState({
               json_data_array: json_data_array, 
-              current_log_index: 1
+              current_log_index: 0
             })
           }
       }
@@ -66,7 +66,7 @@ class Layout extends React.Component {
 
   handleChangeFile = (event) => {
     this.readStateFile(event.target.files[0])
-    this.setLogIndex(1)
+    this.setLogIndex(0)
   }
 
   readStateFile = (file) => {
@@ -87,7 +87,7 @@ class Layout extends React.Component {
   }
 
   setLogIndex = (index) => {
-    if(index <= 0){
+    if(index < 0){
       return;
     }
     if(this.state.json_data_array && index >= this.state.json_data_array.length - 1){
